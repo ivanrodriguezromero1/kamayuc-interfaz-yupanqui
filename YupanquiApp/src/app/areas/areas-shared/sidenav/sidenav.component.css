@@ -1,0 +1,29 @@
+.sidenav-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: url("../../../../assets/img/marte_bg.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.sidenav-left-content{
+  max-width: 480px;
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.sidenav-nav-option {
+  font-size: 25px;
+  color: rgba(255, 255, 255, 0.671);
+}
+.sidenav-nav-option:hover {
+  font-size: 35px;
+  color: white;
+}

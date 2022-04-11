@@ -1,0 +1,16 @@
+<mat-sidenav-container class="sidenav-container" [hasBackdrop]="true">
+    <mat-sidenav #sidenav class="sidenav-left-content" [mode]="'over'">
+        <div class="container mt-5 ">
+            <div *ngFor="let item of Menu" class="row m-3 sidenav-nav-option" (click)="goToPage(item.link)" aria-readonly="true">
+                        <div class="col-2 pointer"><mat-icon>{{item.ico}}</mat-icon></div>
+                        <div class="col-9 pointer">{{item.name}}</div>
+            </div>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="pointer m-3 sidenav-nav-option" mat-raised-button *ngIf="!sidenav.opened" (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </div>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
