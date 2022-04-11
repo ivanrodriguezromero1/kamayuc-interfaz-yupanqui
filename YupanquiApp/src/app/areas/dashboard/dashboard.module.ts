@@ -5,12 +5,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import localeEs from '@angular/common/locales/es';
+import { RoverMapComponent } from './rover-map/rover-map.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
     declarations: [
       DashboardComponent,
-     
+      RoverMapComponent,
+      
     ],
     imports: [
       CommonModule,
