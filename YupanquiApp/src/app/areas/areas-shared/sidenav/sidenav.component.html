@@ -7,10 +7,7 @@
             </div>
         </div>
     </mat-sidenav>
-    <mat-sidenav-content>
-        <div class="pointer m-4 sidenav-nav-option" mat-raised-button (click)="sidenav.toggle()">
-            <mat-icon >menu</mat-icon>
-        </div>
+    <mat-sidenav-content> <app-toolbar [item]="sidenav"></app-toolbar>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
