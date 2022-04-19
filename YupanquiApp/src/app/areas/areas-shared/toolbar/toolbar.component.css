@@ -1,10 +1,14 @@
 .example-spacer {
     flex: 1 1 auto;
   }
+  mat-toolbar{
+    padding: 0;
+  }
 .toolbar-content{
     /*max-width: 2000px;*/
     box-shadow: none;
-    background-color: rgba(39, 35, 35, 0.125);
+    color: rgb(255, 255, 255, 0.671);
+    background-color: rgba(39, 35, 35, 0);
     /*color: rgba(237, 239, 254, 0.775);*/
     font-size: 18px;
   }

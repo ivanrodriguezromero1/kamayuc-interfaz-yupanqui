@@ -1,0 +1,88 @@
+// http://mcg.mbitson.com/#!?mcgpalette0=%233f51b5
+$yupanqui-primary-custom: (
+    50 : #e4e9ec,
+    100 : #bbc9cf,
+    200 : #8ea5b0,
+    300 : #608090,
+    400 : #3e6578,
+    500 : #1c4a60,
+    600 : #194358,
+    700 : #143a4e,
+    800 : #113244,
+    900 : #092233,
+    A100 : #6ebdff,
+    A200 : #3ba6ff,
+    A400 : #088fff,
+    A700 : #0081ed,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$yupanqui-accent-custom: (
+    50 : #feebe1,
+    100 : #feccb4,
+    200 : #fdaa83,
+    300 : #fc8851,
+    400 : #fb6f2b,
+    500 : #fa5506,
+    600 : #f94e05,
+    700 : #f94404,
+    800 : #f83b03,
+    900 : #f62a02,
+    A100 : #ffffff,
+    A200 : #ffecea,
+    A400 : #ffbfb7,
+    A700 : #ffa89d,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+@include mat-core();
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$yupanqui-primary: mat-palette($yupanqui-primary-custom);
+$yupanqui-accent: mat-palette($yupanqui-accent-custom);
+
+// The warn palette is optional (defaults to red).
+$Volcan-warn: mat-palette($mat-red);
+
+$background-color: #eaeef0;
+
+// Create the theme object (a Sass map containing all of the palettes).
+$yupanqui-theme: mat-light-theme(
+    $yupanqui-primary, 
+    $yupanqui-accent
+);
+
+$background: map-get($yupanqui-theme, background);
+$background: map_merge($background, (background: $background-color));
+$yupanqui-theme: map_merge($yupanqui-theme, (background: $background));

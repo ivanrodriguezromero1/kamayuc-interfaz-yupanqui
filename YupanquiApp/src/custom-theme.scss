@@ -1,35 +1,22 @@
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@import '~@angular/material/theming';
 // Plus imports for other components in your app.
-
+@import '~@angular/cdk/overlay-prebuilt.css';
+@import './assets/yupanqui-theme-light.scss';
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat.core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$YupanquiApp-primary: mat.define-palette(mat.$indigo-palette);
-$YupanquiApp-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$YupanquiApp-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$YupanquiApp-theme: mat.define-light-theme((
-  color: (
-    primary: $YupanquiApp-primary,
-    accent: $YupanquiApp-accent,
-    warn: $YupanquiApp-warn,
-  )
-));
+$custom-typography: mat-typography-config(
+  $font-family: 'Open Sans, sans-serif',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+@include mat-core($custom-typography);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-component-themes($YupanquiApp-theme);
-
+@include angular-material-theme($yupanqui-theme);
