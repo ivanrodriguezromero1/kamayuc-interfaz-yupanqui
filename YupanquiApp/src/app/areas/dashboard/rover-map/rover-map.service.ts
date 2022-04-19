@@ -22,6 +22,16 @@ export class EngineService implements OnDestroy {
   girX = 0;
   girY = 0;
   girZ = 0;
+  huellaGeo;
+  huellaMat;
+  huellaMesh;
+  arrayHuella = [];
+  ava;
+  giroDirec = 0;
+  ang = 0;
+  contPasos = 0;
+  rot = 0;
+  cont=0;
   // stats = new Stats();
   private frameId: number = null;
 
@@ -125,7 +135,6 @@ export class EngineService implements OnDestroy {
       (object) => {
         // called when the resource is loaded
         console.log("Rover Cargado")
-        console.log(object);
         this.rover = object;
 
         this.rover.position.x = 0;//rotation x :-Math.PI/2
@@ -133,9 +142,6 @@ export class EngineService implements OnDestroy {
         this.rover.position.z = 0;//0.02
 
 
-        this.rover.rotation.x = 0;
-        this.rover.rotation.y = 0;
-        this.rover.rotation.z = 0;
 
         this.rover.rotateOnAxis(this.ejeX, this.girX);
         this.rover.rotateOnAxis(this.ejeY, this.girY);
@@ -143,20 +149,19 @@ export class EngineService implements OnDestroy {
 
         this.rover.scale.set(4, 4, 4);
 
-        // for(let i=0;i<=120;i++){
-        // 	huellaGeo = new THREE.BoxGeometry( 1, 0.2, 1 );
-        // 	huellaMat = new THREE.MeshBasicMaterial( {color: 0x0CB6B8} );
-        // 	huellaMesh = new THREE.Mesh( huellaGeo, huellaMat );
+        for (let i = 0; i <= 120; i++) {
+          this.huellaGeo = new THREE.BoxGeometry(1, 0.2, 1);
+          this.huellaMat = new THREE.MeshBasicMaterial({ color: 0x0CB6B8 });
+          this.huellaMesh = new THREE.Mesh(this.huellaGeo, this.huellaMat);
 
-        // 	huellaMesh.position.x=0;
-        // 	huellaMesh.position.y=0;
-        // 	huellaMesh.position.z=0;
-        // 	arrayHuella[i]=huellaMesh;
-        // 	scene.add(huellaMesh);
-        // }
-
-        this.scene.add(this.rover);
-        this.scene.add(object)
+          this.huellaMesh.position.x = 0;
+          this.huellaMesh.position.y = 0;
+          this.huellaMesh.position.z = 0;
+          this.arrayHuella[i] = this.huellaMesh;
+          this.scene.add(this.huellaMesh);
+        
+        }
+        this.animate();
       },
       (xhr) => {
         // called while loading is progressing
@@ -179,15 +184,114 @@ export class EngineService implements OnDestroy {
     // because it could trigger heavy changeDetection cycles.
 
     this.ngZone.runOutsideAngular(() => {
-      if (document.readyState !== 'loading') {
-        this.controls.update();
-        this.render();
-      } else {
-        window.addEventListener('DOMContentLoaded', () => {
+      // if (document.readyState !== 'loading') {
+      //$('#idPresionDatos').html(brazoX); 
+
+      this.rover.rotation.x = 0;
+      this.rover.rotation.y = 0;
+      this.rover.rotation.z = 0;
+
+      // brazoInfe.rotation.x=0;
+      // brazoInfe.rotation.y=0;
+      // brazoInfe.rotation.z=0;
+
+      // brazoCent.rotation.x=0;
+      // brazoCent.rotation.y=0;
+      // brazoCent.rotation.z=0;
+
+      // brazoSup.rotation.x=0;
+      // brazoSup.rotation.y=0;
+      // brazoSup.rotation.z=0;
+
+      // brazoSup2.rotation.x=0;
+      // brazoSup2.rotation.y=0;
+      // brazoSup2.rotation.z=0;
+
+      this.ejeX = new THREE.Vector3(1, 0, 0);
+      this.ejeY = new THREE.Vector3(0, 1, 0);
+      this.ejeZ = new THREE.Vector3(0, 0, 1);
+
+      this.rover.rotateOnAxis(this.ejeX, this.girX);
+      this.rover.rotateOnAxis(this.ejeY, this.girY);
+      this.rover.rotateOnAxis(this.ejeZ, this.girZ);
+
+      // brazoCent.rotateOnAxis(ejeY, girY)
+      // brazoSup.rotateOnAxis(ejeY, girY);
+      // brazoSup.rotateOnAxis(ejeZ, girZ);
+      // brazoSup2.rotateOnAxis(ejeY, girY);
+      // brazoSup2.rotateOnAxis(ejeZ, girZ);
+      if (this.ava == 1) {
+        if (this.ang == 0) {
+          let eje = new THREE.Vector3(0, 1, 0);
+          this.arrayHuella[this.contPasos].rotation.x = 0;
+          this.arrayHuella[this.contPasos].rotation.y = 0;
+          this.arrayHuella[this.contPasos].rotation.z = 0;
+          this.arrayHuella[this.contPasos].rotateOnAxis(eje, this.girY);
+          this.ang = 1;
+
+        } else if (this.ang == 1) {
+
+          let eje = new THREE.Vector3(1, 0, 0);
+          this.rot += 2 * Math.PI / 180;
+          this.cont += 1;
+
+          const paso = 0.07;
+
+          this.giroDirec = this.girY;
+          this.rover.position.z -= Math.cos(this.giroDirec) * paso;
+          this.rover.position.x -= Math.sin(this.giroDirec) * paso;
+
+          let cateZ = Math.cos(this.giroDirec) * paso;
+          let cateX = Math.sin(this.giroDirec) * paso;
+
+          this.camera.position.z -= cateZ;
+          this.camera.position.x -= cateX;
+
+          this.controls.target.x -= cateX;
+          this.controls.target.z -= cateZ;
           this.controls.update();
-          this.render();
-        });
+
+          // if (cont==22){
+          // 	ang=0;
+          // 	cont=0;
+          // 	arrayHuella[contPasos].position.x=this.rover.position.x;
+          // 	arrayHuella[contPasos].position.z=this.rover.position.z;
+
+          // 	rutX+=Math.sin(giroDirec)*0.00001;
+          // 	rutY+=Math.cos(giroDirec)*0.00001;
+
+          // 	$("#longlat").text(" Long="+rutX.toString()+"° \n Lat="+rutY.toString()+"°");
+          // 	latlngs.push([rutX,rutY]);
+          // 	polyline= L.polyline(latlngs, {color: '#0CB6B8'}).addTo(map);
+          // 	map.fitBounds(polyline.getBounds());
+
+          // 	if(contPasos<120){
+          // 		contPasos+=1;
+          // 	}else{
+          // 		contPasos=0;
+          // 	}				 		
+          // }
+        }
+
       }
+
+      this.scene.add(this.rover);
+
+      // agregarBrazoAEscena();
+
+
+
+      this.controls.update();
+      this.render();
+      // } 
+      // else {
+      //   window.addEventListener('DOMContentLoaded', () => {
+
+
+      //     this.controls.update();
+      //     this.render();
+      //   });
+      // }
 
       window.addEventListener('resize', () => {
         this.resize();
