@@ -1,3 +1,25 @@
-.custom-box{
+.custom-box {
     color: rgb(255, 255, 255, 0.671);
+}
+
+.bg-rover {
+    background: url("../../../assets/img/marte_bg.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+.bg-stats {
+    /* background-color: #0A1515; */
 }

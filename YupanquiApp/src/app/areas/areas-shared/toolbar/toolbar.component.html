@@ -1,15 +1,15 @@
 <mat-toolbar class="toolbar-content">
   <!--<p></p>-->
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-1">
+      <div class="col">
         <div mat-raised-button (click)="item.toggle()">
           <mat-icon class="text-center pointer" style="align-items:center;">menu</mat-icon>
         </div>
       </div>
-      <div class="col-3">Welcome to Kamayuc's Rover</div>
+      <div class="col-4">Welcome to Kamayuc's Rover</div>
       <div class="col"></div>
-      <div class="col-md-4 button-content">
+      <div class="col-5">
         <button class="button-toolbar" mat-button [matMenuTriggerFor]="menu">Controls</button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Sensor1</button>
