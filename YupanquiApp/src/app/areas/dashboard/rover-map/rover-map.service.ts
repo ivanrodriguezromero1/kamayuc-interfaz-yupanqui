@@ -16,9 +16,6 @@ export class EngineService implements OnDestroy {
   rover: any;
   objeto: any;
   controls: any;
-  ejeX = new THREE.Vector3(1, 0, 0);
-  ejeY = new THREE.Vector3(0, 1, 0);
-  ejeZ = new THREE.Vector3(0, 0, 1);
   girX = 0;
   girY = 0;
   girZ = 0;
@@ -26,7 +23,7 @@ export class EngineService implements OnDestroy {
   huellaMat;
   huellaMesh;
   arrayHuella = [];
-  ava;
+  ava=0;
   giroDirec = 0;
   ang = 0;
   contPasos = 0;
@@ -47,27 +44,51 @@ export class EngineService implements OnDestroy {
       this.resize();
     });
     window.addEventListener("keydown", (event) =>{
-      console.log(event.key);
-      this.ava=1;
-      if(event.key.toString()=='h'){
-        if(this.girY>0){
+      
+      console.log(event.key)
+      
+      if(event.key.toString()=='d'||event.key.toString()=='D'){
+        
+        // if(this.girY>0){
+         
+        // }
+        if(this.ava!=0){
           this.girY-=3*Math.PI/180;
         }
-      }else if(event.key.toString()=='k'){
-        if(this.girY<22*Math.PI/180){
+      }else if(event.key.toString()=='a'||event.key.toString()=='A'){
+        
+        // if(this.girY<22*Math.PI/180){
+          
+        // }
+        if(this.ava!=0){
           this.girY+=3*Math.PI/180;
         }
-      }else if(event.key.toString()=='j'){
-        if(this.girZ<60*Math.PI/180){
-          this.girZ+=3*Math.PI/180;
+      }else if(event.key.toString()=='s'||event.key.toString()=='S'){
+        // // this.girX+=3*Math.PI/180;
+        // if(this.girX<60*Math.PI/180){
+          
+        // }
+        if(this.ava>0){
+          this.ava=0;
         }
-      }else if(event.key.toString()=='u'){
-        if(this.girZ>0){
-          this.girZ-=3*Math.PI/180;
+        else{
+          this.ava=-1;
         }
-      }else if(event.key.toString()=='o'){
+      }else if(event.key.toString()=='w'||event.key.toString()=='W'){
+        if(this.ava<0){
+          this.ava=0;
+        }
+        else{
+          this.ava=1;
+        }
+        // this.girX-=3*Math.PI/180;
+        // if(this.girX>0){
+          
+        // }
+      }else if(event.key.toString()=='q'||event.key.toString()=='Q'){
+        this.ava=0;
         this.gripper=0;
-      }else if(event.key.toString()=='l'){
+      }else if(event.key.toString()=='e'||event.key.toString()=='E'){
         this.gripper=1;
       }
 
@@ -104,19 +125,21 @@ export class EngineService implements OnDestroy {
       antialias: true // smooth edges
     });
     this.renderer.setSize(window.innerWidth-3,innerHeight-50);
-
+    
     // create the scene
     this.scene = new THREE.Scene();
-
+    this.scene.background = new THREE.Color( 0xaaccff );
+    this. scene.fog = new THREE.FogExp2( 0xaaccff, 0.021 );
     this.camera = new THREE.PerspectiveCamera(60, (window.innerWidth-3) / (window.innerHeight-60), 1, 20000);
 
-    this.camera.position.set(-10, 7, -2);
-
+    this.camera.position.x = -4;
+    this.camera.position.y = 4;
+    this.camera.position.z = 8;
 
     // light
 
     var dirLight = new THREE.DirectionalLight(0xeeeeee);
-    dirLight.position.set(200, 200, 200);
+    dirLight.position.set(200, 200, 1000);
 
     this.camera.add(dirLight);
     this.camera.add(dirLight.target);
@@ -132,13 +155,12 @@ export class EngineService implements OnDestroy {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.maxPolarAngle = Math.PI * 0.45;//0.495
     //controls.target.set( 0, 10, 0 );
-    this.controls.minDistance = 1;
-    this.controls.maxDistance = 200;
-    this.controls.enableDamping = true;
+    this.controls.minDistance = 3;
+    this.controls.maxDistance = 15;
     //controls.update();
 
-    this.controls.target.x = -4;
-    this.controls.target.y = 4;
+    this.controls.target.x = 0;
+    this.controls.target.y = 0;
     this.controls.target.z = 0;
 
     var geometry = new THREE.PlaneBufferGeometry(20000, 20000, 1, 1);
@@ -152,7 +174,7 @@ export class EngineService implements OnDestroy {
 
     var texture = new THREE.TextureLoader().load('../../../../assets/terrain/terrain2.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(325, 325);
+    texture.repeat.set( 353, 353);
 
     var material = new THREE.MeshBasicMaterial({ color: 0xcf882c, map: texture });
     var mesh = new THREE.Mesh(geometry, material);
@@ -164,22 +186,23 @@ export class EngineService implements OnDestroy {
         // called when the resource is loaded
         console.log("Rover Cargado")
         this.rover = object;
-
+        this.rover.rotation.y= Math.PI/2;
+        
         this.rover.position.x = 0;//rotation x :-Math.PI/2
         this.rover.position.y = 0.76;//0.76
         this.rover.position.z = 0;//0.02
 
 
 
-        this.rover.rotateOnAxis(this.ejeX, this.girX);
-        this.rover.rotateOnAxis(this.ejeY, this.girY);
-        this.rover.rotateOnAxis(this.ejeZ, this.girZ);
+        // this.rover.rotateOnAxis(this.ejeX, this.girX);
+        // this.rover.rotateOnAxis(this.ejeY, this.girY);
+        // this.rover.rotateOnAxis(this.ejeZ, this.girZ);
 
         this.rover.scale.set(4, 4, 4);
         this.scene.add(this.rover);
         this.animate();
         for (let i = 0; i <= 120; i++) {
-          this.huellaGeo = new THREE.BoxGeometry(0.5, 0.2, 0.5);
+          this.huellaGeo = new THREE.BoxGeometry( 1, 0.05, 1 );
           this.huellaMat = new THREE.MeshBasicMaterial({ color: 0x0CB6B8 });
           this.huellaMesh = new THREE.Mesh(this.huellaGeo, this.huellaMat);
 
@@ -211,38 +234,20 @@ export class EngineService implements OnDestroy {
       // if (document.readyState !== 'loading') {
       //$('#idPresionDatos').html(brazoX); 
 
-      // this.rover.rotation.x = 0;
-      // this.rover.rotation.y = 0;
-      // this.rover.rotation.z = 0;
+      this.rover.rotation.x = 0;
+      this.rover.rotation.y= Math.PI/2;
+      this.rover.rotation.z = 0;
+      
+      
 
-      // brazoInfe.rotation.x=0;
-      // brazoInfe.rotation.y=0;
-      // brazoInfe.rotation.z=0;
+      let ejeX = new THREE.Vector3(1, 0, 0);
+      let ejeY = new THREE.Vector3(0, 1, 0);
+      let ejeZ = new THREE.Vector3(0, 0, 1);
 
-      // brazoCent.rotation.x=0;
-      // brazoCent.rotation.y=0;
-      // brazoCent.rotation.z=0;
+      this.rover.rotateOnAxis(ejeX, this.girX);
+      this.rover.rotateOnAxis(ejeY, this.girY);
+      this.rover.rotateOnAxis(ejeZ, this.girZ);
 
-      // brazoSup.rotation.x=0;
-      // brazoSup.rotation.y=0;
-      // brazoSup.rotation.z=0;
-
-      // brazoSup2.rotation.x=0;
-      // brazoSup2.rotation.y=0;
-      // brazoSup2.rotation.z=0;
-
-      this.ejeX = new THREE.Vector3(1, 0, 0);
-      this.ejeY = new THREE.Vector3(0, 1, 0);
-      this.ejeZ = new THREE.Vector3(0, 0, 1);
-
-      this.rover.rotateOnAxis(this.ejeX, this.girX);
-      this.rover.rotateOnAxis(this.ejeY, this.girY);
-      this.rover.rotateOnAxis(this.ejeZ, this.girZ);
-      // brazoCent.rotateOnAxis(ejeY, girY)
-      // brazoSup.rotateOnAxis(ejeY, girY);
-      // brazoSup.rotateOnAxis(ejeZ, girZ);
-      // brazoSup2.rotateOnAxis(ejeY, girY);
-      // brazoSup2.rotateOnAxis(ejeZ, girZ);
       if (this.ava == 1) {
         if (this.ang == 0) {
           let eje = new THREE.Vector3(0, 1, 0);
@@ -253,17 +258,16 @@ export class EngineService implements OnDestroy {
           this.ang = 1;
 
         } else if (this.ang == 1) {
-
-          let eje = new THREE.Vector3(1, 0, 0);
-          this.rot += 2 * Math.PI / 180;
-          this.cont += 1;
+          // let eje = new THREE.Vector3(1, 0, 0);
+          // this.rot += 2 * Math.PI / 180;
+          // this.cont += 1;
 
           const paso = 0.07;
 
           this.giroDirec = this.girY;
           this.rover.position.z -= Math.cos(this.giroDirec) * paso;
           this.rover.position.x -= Math.sin(this.giroDirec) * paso;
-
+          console.log(this.rover.position);
           let cateZ = Math.cos(this.giroDirec) * paso;
           let cateX = Math.sin(this.giroDirec) * paso;
 
@@ -295,9 +299,59 @@ export class EngineService implements OnDestroy {
           	}				 		
           }
         }
-
       }
+      else if (this.ava==-1){
+        if (this.ang == 0) {
+          let eje = new THREE.Vector3(0, 1, 0);
+          this.arrayHuella[this.contPasos].rotation.x = 0;
+          this.arrayHuella[this.contPasos].rotation.y = 0;
+          this.arrayHuella[this.contPasos].rotation.z = 0;
+          this.arrayHuella[this.contPasos].rotateOnAxis(eje, this.girY);
+          this.ang = 1;
 
+        } else if (this.ang == 1) {
+          // let eje = new THREE.Vector3(1, 0, 0);
+          this.rot += 2 * Math.PI / 180;
+          this.cont += 1;
+
+          const paso = -0.07;
+
+          this.giroDirec = this.girY;
+          this.rover.position.z -= Math.cos(this.giroDirec) * paso;
+          this.rover.position.x -= Math.sin(this.giroDirec) * paso;
+          console.log(this.rover.position);
+          let cateZ = Math.cos(this.giroDirec) * paso;
+          let cateX = Math.sin(this.giroDirec) * paso;
+
+          this.camera.position.z -= cateZ;
+          this.camera.position.x -= cateX;
+
+          this.controls.target.x -= cateX;
+          this.controls.target.z -= cateZ;
+          this.controls.update();
+
+          if (this.cont==22){
+          	this.ang=0;
+          	this.cont=0;
+          	this.arrayHuella[this.contPasos].position.x=this.rover.position.x;
+          	this.arrayHuella[this.contPasos].position.z=this.rover.position.z;
+
+          	this.rutX+=Math.sin(this.giroDirec)*0.00001;
+          	this.rutY+=Math.cos(this.giroDirec)*0.00001;
+
+          	// $("#longlat").text(" Long="+rutX.toString()+"° \n Lat="+rutY.toString()+"°");
+          	// this.latlngs.push([this.rutX,this.rutY]);
+          	// this.polyline= L.polyline(this.latlngs, {color: '#0CB6B8'}).addTo(map);
+          	// map.fitBounds(polyline.getBounds());
+
+          	if(this.contPasos<120){
+          		this.contPasos+=1;
+          	}else{
+          		this.contPasos=0;
+          	}				 		
+          }
+        }
+      }
       this.scene.add(this.rover);
 
       // agregarBrazoAEscena();
@@ -318,14 +372,15 @@ export class EngineService implements OnDestroy {
 
       
     });
+    this.frameId = requestAnimationFrame(() => {
+      this.animate();
+    });
+    this.render();
     // this.stats.update();
   }
 
   render(): void {
-    this.frameId = requestAnimationFrame(() => {
-      // this.stats.begin();
-      this.render();
-    });
+
     // this.rover.rotation.x += 0.01;
     // this.rover.rotation.y += 0.01;
     // this.cube.rotation.x += 0.01;

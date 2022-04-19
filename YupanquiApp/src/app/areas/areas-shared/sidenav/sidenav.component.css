@@ -5,7 +5,8 @@
   left: 0;
   right: 0;
   height: 100%;
-  background: url("../../../../assets/img/marte_bg.jpg") no-repeat center center fixed; 
+  background-color: #AACCFF;
+  /* background: url("../../../../assets/img/marte_bg.jpg") no-repeat center center fixed;  */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
