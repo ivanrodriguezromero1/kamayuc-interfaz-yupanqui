@@ -1,0 +1,71 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+.toolbar-content{
+    /*max-width: 2000px;*/
+    box-shadow: none;
+    background-color: rgba(39, 35, 35, 0.125);
+    /*color: rgba(237, 239, 254, 0.775);*/
+    font-size: 18px;
+  }
+  .button-content{
+    /*font-size: 20px;
+    color: rgba(0, 0, 0, 0.577)
+    /*color: rgb(255, 255, 255, 0.671);*/
+   
+      display: table-cell;
+      font-size: 14px;
+      margin-left: 8px;
+      min-width: 120px;
+    
+  }
+  
+  .button-content:hover{
+    font-size: 30px;
+    color: rgb(237, 239, 254)
+    /*color: rgb(255, 255, 255, 0.671);*/
+  }
+
+
+  .example-large-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    height: 300px;
+    width: 300px;
+  }
+  
+
+
+  
+  /*.example-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+  }
+  
+  .example-button-row {
+    display: table-cell;
+    width: 490px;
+  }
+  
+  .example-button-row .mat-button-base {
+    margin: 8px 8px 8px 0;
+  }
+  
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
+  */
