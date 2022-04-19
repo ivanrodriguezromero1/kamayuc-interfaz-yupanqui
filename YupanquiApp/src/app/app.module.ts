@@ -8,19 +8,22 @@ import { SidenavComponent } from './areas/areas-shared/sidenav/sidenav.component
 import { ToolbarComponent } from './areas/areas-shared/toolbar/toolbar.component';
 import { DashboardComponent } from './areas/dashboard/dashboard.component';
 import { MaterialtModule } from './shared/libraries/material.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidenavComponent,
-    ToolbarComponent
+    ToolbarComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialtModule
+    MaterialtModule,
+    MatDialogModule,
   ],
+ 
   providers: [],
   bootstrap: [AppComponent]
 })
