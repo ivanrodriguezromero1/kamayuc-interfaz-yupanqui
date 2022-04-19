@@ -32,15 +32,44 @@ export class EngineService implements OnDestroy {
   contPasos = 0;
   rot = 0;
   cont=0;
+  gripper = 0;
+  latlngs = [[38.36, -110.7]];
+  rutX=38.36;
+	rutY=-110.7;
+  polyline;
   // stats = new Stats();
   private frameId: number = null;
 
   constructor(
     private ngZone: NgZone
   ) {
-    window.addEventListener("keydown", function (event) {
+    window.addEventListener('resize', () => {
+      this.resize();
+    });
+    window.addEventListener("keydown", (event) =>{
       console.log(event.key);
-
+      this.ava=1;
+      if(event.key.toString()=='h'){
+        if(this.girY>0){
+          this.girY-=3*Math.PI/180;
+        }
+      }else if(event.key.toString()=='k'){
+        if(this.girY<22*Math.PI/180){
+          this.girY+=3*Math.PI/180;
+        }
+      }else if(event.key.toString()=='j'){
+        if(this.girZ<60*Math.PI/180){
+          this.girZ+=3*Math.PI/180;
+        }
+      }else if(event.key.toString()=='u'){
+        if(this.girZ>0){
+          this.girZ-=3*Math.PI/180;
+        }
+      }else if(event.key.toString()=='o'){
+        this.gripper=0;
+      }else if(event.key.toString()=='l'){
+        this.gripper=1;
+      }
 
 
 
@@ -128,7 +157,6 @@ export class EngineService implements OnDestroy {
     var material = new THREE.MeshBasicMaterial({ color: 0xcf882c, map: texture });
     var mesh = new THREE.Mesh(geometry, material);
     this.scene.add(mesh);
-
     const loader = new VRMLLoader();
     loader.load(
       '../../../../assets/vrm/yupanqui.wrl',
@@ -148,9 +176,10 @@ export class EngineService implements OnDestroy {
         this.rover.rotateOnAxis(this.ejeZ, this.girZ);
 
         this.rover.scale.set(4, 4, 4);
-
+        this.scene.add(this.rover);
+        this.animate();
         for (let i = 0; i <= 120; i++) {
-          this.huellaGeo = new THREE.BoxGeometry(1, 0.2, 1);
+          this.huellaGeo = new THREE.BoxGeometry(0.5, 0.2, 0.5);
           this.huellaMat = new THREE.MeshBasicMaterial({ color: 0x0CB6B8 });
           this.huellaMesh = new THREE.Mesh(this.huellaGeo, this.huellaMat);
 
@@ -161,7 +190,7 @@ export class EngineService implements OnDestroy {
           this.scene.add(this.huellaMesh);
         
         }
-        this.animate();
+        
       },
       (xhr) => {
         // called while loading is progressing
@@ -172,11 +201,6 @@ export class EngineService implements OnDestroy {
         console.error('An error happened', error);
       },
     );
-    //   loader.load('../../../../assets/vrm/rover.wrl', function(object){
-    //     alert(object);
-    //     this.scene.add(object);
-    //     console
-    // });
   }
 
   animate(): void {
@@ -187,9 +211,9 @@ export class EngineService implements OnDestroy {
       // if (document.readyState !== 'loading') {
       //$('#idPresionDatos').html(brazoX); 
 
-      this.rover.rotation.x = 0;
-      this.rover.rotation.y = 0;
-      this.rover.rotation.z = 0;
+      // this.rover.rotation.x = 0;
+      // this.rover.rotation.y = 0;
+      // this.rover.rotation.z = 0;
 
       // brazoInfe.rotation.x=0;
       // brazoInfe.rotation.y=0;
@@ -214,7 +238,6 @@ export class EngineService implements OnDestroy {
       this.rover.rotateOnAxis(this.ejeX, this.girX);
       this.rover.rotateOnAxis(this.ejeY, this.girY);
       this.rover.rotateOnAxis(this.ejeZ, this.girZ);
-
       // brazoCent.rotateOnAxis(ejeY, girY)
       // brazoSup.rotateOnAxis(ejeY, girY);
       // brazoSup.rotateOnAxis(ejeZ, girZ);
@@ -251,26 +274,26 @@ export class EngineService implements OnDestroy {
           this.controls.target.z -= cateZ;
           this.controls.update();
 
-          // if (cont==22){
-          // 	ang=0;
-          // 	cont=0;
-          // 	arrayHuella[contPasos].position.x=this.rover.position.x;
-          // 	arrayHuella[contPasos].position.z=this.rover.position.z;
+          if (this.cont==22){
+          	this.ang=0;
+          	this.cont=0;
+          	this.arrayHuella[this.contPasos].position.x=this.rover.position.x;
+          	this.arrayHuella[this.contPasos].position.z=this.rover.position.z;
 
-          // 	rutX+=Math.sin(giroDirec)*0.00001;
-          // 	rutY+=Math.cos(giroDirec)*0.00001;
+          	this.rutX+=Math.sin(this.giroDirec)*0.00001;
+          	this.rutY+=Math.cos(this.giroDirec)*0.00001;
 
-          // 	$("#longlat").text(" Long="+rutX.toString()+"° \n Lat="+rutY.toString()+"°");
-          // 	latlngs.push([rutX,rutY]);
-          // 	polyline= L.polyline(latlngs, {color: '#0CB6B8'}).addTo(map);
-          // 	map.fitBounds(polyline.getBounds());
+          	// $("#longlat").text(" Long="+rutX.toString()+"° \n Lat="+rutY.toString()+"°");
+          	// this.latlngs.push([this.rutX,this.rutY]);
+          	// this.polyline= L.polyline(this.latlngs, {color: '#0CB6B8'}).addTo(map);
+          	// map.fitBounds(polyline.getBounds());
 
-          // 	if(contPasos<120){
-          // 		contPasos+=1;
-          // 	}else{
-          // 		contPasos=0;
-          // 	}				 		
-          // }
+          	if(this.contPasos<120){
+          		this.contPasos+=1;
+          	}else{
+          		this.contPasos=0;
+          	}				 		
+          }
         }
 
       }
@@ -293,9 +316,7 @@ export class EngineService implements OnDestroy {
       //   });
       // }
 
-      window.addEventListener('resize', () => {
-        this.resize();
-      });
+      
     });
     // this.stats.update();
   }

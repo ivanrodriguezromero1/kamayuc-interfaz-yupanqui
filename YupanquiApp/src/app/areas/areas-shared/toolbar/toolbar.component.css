@@ -12,23 +12,33 @@
     /*color: rgba(237, 239, 254, 0.775);*/
     font-size: 18px;
   }
+  .mat-icon {
+    vertical-align: middle;
+}
   .button-content{
     /*font-size: 20px;
     color: rgba(0, 0, 0, 0.577)
     /*color: rgb(255, 255, 255, 0.671);*/
-   
-      display: table-cell;
+    color: rgb(255, 255, 255, 0.671);
       font-size: 14px;
       margin-left: 8px;
+      margin-right: 8px;
       min-width: 120px;
     
   }
-  
   .button-content:hover{
+    background-color: rgba(255, 255, 255, 0);
+    
+  }
+  .button-toolbar:hover{
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+}
+  /* .button-content:hover{
     font-size: 30px;
     color: rgb(237, 239, 254)
-    /*color: rgb(255, 255, 255, 0.671);*/
-  }
+    color: rgb(255, 255, 255, 0.671);
+  } */
 
 
   .example-large-box {

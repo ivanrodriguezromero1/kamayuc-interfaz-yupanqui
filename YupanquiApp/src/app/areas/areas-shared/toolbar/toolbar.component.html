@@ -1,35 +1,31 @@
-  <mat-toolbar class="toolbar-content">
-    <!--<p></p>-->
-    <div class="pointer m-4 toolbar-nav-option" mat-raised-button (click)="item.toggle()">
-       <mat-icon >menu</mat-icon>
-    </div>
-    <span>Welcome to Kamayuc's Rover</span>
-    <span class="example-spacer"></span>
-    <!--<div class="button-content">-->
-    <!--<button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-    </button>-->
-    <!--<button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-    </button>-->
-    
-    <div class="button-content">
-      <button mat-button [matMenuTriggerFor]="menu">Controls</button>
-      <mat-menu #menu="matMenu">
-      <button mat-menu-item>Sensor1</button>
-      <button mat-menu-item>Sensor2</button>
-      </mat-menu>
-      <button mat-button (click)="openDialog()">About Us</button>
-        
-        <a mat-button href="https://www.facebook.com/Kamayuc/?ref=page_internal" target="_blank">Contact</a>
+<mat-toolbar class="toolbar-content">
+  <!--<p></p>-->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1">
+        <div mat-raised-button (click)="item.toggle()">
+          <mat-icon class="text-center pointer" style="align-items:center;">menu</mat-icon>
+        </div>
+      </div>
+      <div class="col-3">Welcome to Kamayuc's Rover</div>
+      <div class="col"></div>
+      <div class="col-md-4 button-content">
+        <button class="button-toolbar" mat-button [matMenuTriggerFor]="menu">Controls</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Sensor1</button>
+          <button mat-menu-item>Sensor2</button>
+        </mat-menu>
+        <button class="button-toolbar" mat-button (click)="openDialog()">About Us</button>
+
+        <button class="button-toolbar" mat-button mat-button style="text-decoration: none;"
+          (click)="goToTeam()">Contact</button>
         <!--<mat-icon>support_agent</mat-icon>-->
-        
-   </div>
-    <!--<button  class="fb-icon" aria-label="icon-button with logo fb icon">
+
+      </div>
+      <!--<button  class="fb-icon" aria-label="icon-button with logo fb icon">
       <mat-icon>fb</mat-icon>
     </button>
     <a mat-button href="https://roverchallenge.eu/en/teams/kamayuc/" target="_blank">About Us</a>-->
-  
-  </mat-toolbar>
-
-  
+    </div>
+  </div>
+</mat-toolbar>

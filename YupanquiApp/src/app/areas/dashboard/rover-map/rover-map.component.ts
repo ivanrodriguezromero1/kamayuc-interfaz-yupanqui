@@ -17,7 +17,6 @@ export class RoverMapComponent implements OnInit {
   public ngOnInit(): void {
     
     this.engServ.createScene(this.rendererCanvas);
-    this.engServ.animate();
   }
 
 }

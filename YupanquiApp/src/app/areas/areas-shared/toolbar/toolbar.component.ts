@@ -17,4 +17,7 @@ export class ToolbarComponent implements OnInit {
   openDialog() {
     this.dialog.open(MyDialogAboutComponent);
   }
+  goToTeam(){
+    window.open('https://www.facebook.com/Kamayuc/?ref=page_internal','_blank');
+  }
 }
