@@ -23,16 +23,16 @@ export class EngineService implements OnDestroy {
   huellaMat;
   huellaMesh;
   arrayHuella = [];
-  ava=0;
+  ava = 0;
   giroDirec = 0;
   ang = 0;
   contPasos = 0;
   rot = 0;
-  cont=0;
+  cont = 0;
   gripper = 0;
   latlngs = [[38.36, -110.7]];
-  rutX=38.36;
-	rutY=-110.7;
+  rutX = 38.36;
+  rutY = -110.7;
   polyline;
   // stats = new Stats();
   private frameId: number = null;
@@ -43,53 +43,53 @@ export class EngineService implements OnDestroy {
     window.addEventListener('resize', () => {
       this.resize();
     });
-    window.addEventListener("keydown", (event) =>{
-      
+    window.addEventListener("keydown", (event) => {
+
       console.log(event.key)
-      
-      if(event.key.toString()=='d'||event.key.toString()=='D'){
-        
+
+      if (event.key.toString() == 'd' || event.key.toString() == 'D') {
+
         // if(this.girY>0){
-         
+
         // }
-        if(this.ava!=0){
-          this.girY-=3*Math.PI/180;
+        if (this.ava != 0) {
+          this.girY -= 3 * Math.PI / 180;
         }
-      }else if(event.key.toString()=='a'||event.key.toString()=='A'){
-        
+      } else if (event.key.toString() == 'a' || event.key.toString() == 'A') {
+
         // if(this.girY<22*Math.PI/180){
-          
+
         // }
-        if(this.ava!=0){
-          this.girY+=3*Math.PI/180;
+        if (this.ava != 0) {
+          this.girY += 3 * Math.PI / 180;
         }
-      }else if(event.key.toString()=='s'||event.key.toString()=='S'){
+      } else if (event.key.toString() == 's' || event.key.toString() == 'S') {
         // // this.girX+=3*Math.PI/180;
         // if(this.girX<60*Math.PI/180){
-          
+
         // }
-        if(this.ava>0){
-          this.ava=0;
+        if (this.ava > 0) {
+          this.ava = 0;
         }
-        else{
-          this.ava=-1;
+        else {
+          this.ava = -1;
         }
-      }else if(event.key.toString()=='w'||event.key.toString()=='W'){
-        if(this.ava<0){
-          this.ava=0;
+      } else if (event.key.toString() == 'w' || event.key.toString() == 'W') {
+        if (this.ava < 0) {
+          this.ava = 0;
         }
-        else{
-          this.ava=1;
+        else {
+          this.ava = 1;
         }
         // this.girX-=3*Math.PI/180;
         // if(this.girX>0){
-          
+
         // }
-      }else if(event.key.toString()=='q'||event.key.toString()=='Q'){
-        this.ava=0;
-        this.gripper=0;
-      }else if(event.key.toString()=='e'||event.key.toString()=='E'){
-        this.gripper=1;
+      } else if (event.key.toString() == 'q' || event.key.toString() == 'Q') {
+        this.ava = 0;
+        this.gripper = 0;
+      } else if (event.key.toString() == 'e' || event.key.toString() == 'E') {
+        this.gripper = 1;
       }
 
 
@@ -124,13 +124,13 @@ export class EngineService implements OnDestroy {
       alpha: true,    // transparent background
       antialias: true // smooth edges
     });
-    this.renderer.setSize(window.innerWidth-3,innerHeight-50);
-    
+    this.renderer.setSize(window.innerWidth - 3, innerHeight - 50);
+
     // create the scene
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color( 0xaaccff );
-    this. scene.fog = new THREE.FogExp2( 0xaaccff, 0.021 );
-    this.camera = new THREE.PerspectiveCamera(60, (window.innerWidth-3) / (window.innerHeight-60), 1, 20000);
+    this.scene.background = new THREE.Color(0xaaccff);
+    this.scene.fog = new THREE.FogExp2(0xaaccff, 0.021);
+    this.camera = new THREE.PerspectiveCamera(60, (window.innerWidth - 3) / (window.innerHeight - 60), 1, 20000);
 
     this.camera.position.x = -4;
     this.camera.position.y = 4;
@@ -174,7 +174,7 @@ export class EngineService implements OnDestroy {
 
     var texture = new THREE.TextureLoader().load('../../../../assets/terrain/terrain2.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set( 353, 353);
+    texture.repeat.set(353, 353);
 
     var material = new THREE.MeshBasicMaterial({ color: 0xcf882c, map: texture });
     var mesh = new THREE.Mesh(geometry, material);
@@ -186,8 +186,8 @@ export class EngineService implements OnDestroy {
         // called when the resource is loaded
         console.log("Rover Cargado")
         this.rover = object;
-        this.rover.rotation.y= Math.PI/2;
-        
+        this.rover.rotation.y = Math.PI / 2;
+
         this.rover.position.x = 0;//rotation x :-Math.PI/2
         this.rover.position.y = 0.76;//0.76
         this.rover.position.z = 0;//0.02
@@ -202,7 +202,7 @@ export class EngineService implements OnDestroy {
         this.scene.add(this.rover);
         this.animate();
         for (let i = 0; i <= 120; i++) {
-          this.huellaGeo = new THREE.BoxGeometry( 1, 0.05, 1 );
+          this.huellaGeo = new THREE.BoxGeometry(1, 0.05, 1);
           this.huellaMat = new THREE.MeshBasicMaterial({ color: 0x0CB6B8 });
           this.huellaMesh = new THREE.Mesh(this.huellaGeo, this.huellaMat);
 
@@ -211,9 +211,9 @@ export class EngineService implements OnDestroy {
           this.huellaMesh.position.z = 0;
           this.arrayHuella[i] = this.huellaMesh;
           this.scene.add(this.huellaMesh);
-        
+
         }
-        
+
       },
       (xhr) => {
         // called while loading is progressing
@@ -235,10 +235,10 @@ export class EngineService implements OnDestroy {
       //$('#idPresionDatos').html(brazoX); 
 
       this.rover.rotation.x = 0;
-      this.rover.rotation.y= Math.PI/2;
+      this.rover.rotation.y = Math.PI / 2;
       this.rover.rotation.z = 0;
-      
-      
+
+
 
       let ejeX = new THREE.Vector3(1, 0, 0);
       let ejeY = new THREE.Vector3(0, 1, 0);
@@ -260,7 +260,7 @@ export class EngineService implements OnDestroy {
         } else if (this.ang == 1) {
           // let eje = new THREE.Vector3(1, 0, 0);
           // this.rot += 2 * Math.PI / 180;
-          // this.cont += 1;
+          this.cont += 1;
 
           const paso = 0.07;
 
@@ -278,29 +278,29 @@ export class EngineService implements OnDestroy {
           this.controls.target.z -= cateZ;
           this.controls.update();
 
-          if (this.cont==22){
-          	this.ang=0;
-          	this.cont=0;
-          	this.arrayHuella[this.contPasos].position.x=this.rover.position.x;
-          	this.arrayHuella[this.contPasos].position.z=this.rover.position.z;
+          if (this.cont == 22) {
+            this.ang = 0;
+            this.cont = 0;
+            this.arrayHuella[this.contPasos].position.x = this.rover.position.x;
+            this.arrayHuella[this.contPasos].position.z = this.rover.position.z;
 
-          	this.rutX+=Math.sin(this.giroDirec)*0.00001;
-          	this.rutY+=Math.cos(this.giroDirec)*0.00001;
+            this.rutX += Math.sin(this.giroDirec) * 0.00001;
+            this.rutY += Math.cos(this.giroDirec) * 0.00001;
 
-          	// $("#longlat").text(" Long="+rutX.toString()+"° \n Lat="+rutY.toString()+"°");
-          	// this.latlngs.push([this.rutX,this.rutY]);
-          	// this.polyline= L.polyline(this.latlngs, {color: '#0CB6B8'}).addTo(map);
-          	// map.fitBounds(polyline.getBounds());
+            // $("#longlat").text(" Long="+rutX.toString()+"° \n Lat="+rutY.toString()+"°");
+            // this.latlngs.push([this.rutX,this.rutY]);
+            // this.polyline= L.polyline(this.latlngs, {color: '#0CB6B8'}).addTo(map);
+            // map.fitBounds(polyline.getBounds());
 
-          	if(this.contPasos<120){
-          		this.contPasos+=1;
-          	}else{
-          		this.contPasos=0;
-          	}				 		
+            if (this.contPasos < 120) {
+              this.contPasos += 1;
+            } else {
+              this.contPasos = 0;
+            }
           }
         }
       }
-      else if (this.ava==-1){
+      else if (this.ava == -1) {
         if (this.ang == 0) {
           let eje = new THREE.Vector3(0, 1, 0);
           this.arrayHuella[this.contPasos].rotation.x = 0;
@@ -330,25 +330,25 @@ export class EngineService implements OnDestroy {
           this.controls.target.z -= cateZ;
           this.controls.update();
 
-          if (this.cont==22){
-          	this.ang=0;
-          	this.cont=0;
-          	this.arrayHuella[this.contPasos].position.x=this.rover.position.x;
-          	this.arrayHuella[this.contPasos].position.z=this.rover.position.z;
+          if (this.cont == 22) {
+            this.ang = 0;
+            this.cont = 0;
+            this.arrayHuella[this.contPasos].position.x = this.rover.position.x;
+            this.arrayHuella[this.contPasos].position.z = this.rover.position.z;
 
-          	this.rutX+=Math.sin(this.giroDirec)*0.00001;
-          	this.rutY+=Math.cos(this.giroDirec)*0.00001;
+            this.rutX += Math.sin(this.giroDirec) * 0.00001;
+            this.rutY += Math.cos(this.giroDirec) * 0.00001;
 
-          	// $("#longlat").text(" Long="+rutX.toString()+"° \n Lat="+rutY.toString()+"°");
-          	// this.latlngs.push([this.rutX,this.rutY]);
-          	// this.polyline= L.polyline(this.latlngs, {color: '#0CB6B8'}).addTo(map);
-          	// map.fitBounds(polyline.getBounds());
+            // $("#longlat").text(" Long="+rutX.toString()+"° \n Lat="+rutY.toString()+"°");
+            // this.latlngs.push([this.rutX,this.rutY]);
+            // this.polyline= L.polyline(this.latlngs, {color: '#0CB6B8'}).addTo(map);
+            // map.fitBounds(polyline.getBounds());
 
-          	if(this.contPasos<120){
-          		this.contPasos+=1;
-          	}else{
-          		this.contPasos=0;
-          	}				 		
+            if (this.contPasos < 120) {
+              this.contPasos += 1;
+            } else {
+              this.contPasos = 0;
+            }
           }
         }
       }
@@ -370,7 +370,7 @@ export class EngineService implements OnDestroy {
       //   });
       // }
 
-      
+
     });
     this.frameId = requestAnimationFrame(() => {
       this.animate();
@@ -388,12 +388,12 @@ export class EngineService implements OnDestroy {
     this.renderer.render(this.scene, this.camera);
   }
   resize(): void {
-    const width = window.innerWidth-20;
-    const height = window.innerHeight-64;
+    const width = window.innerWidth - 20;
+    const height = window.innerHeight - 64;
 
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
 
-    this.renderer.setSize(width,height);
+    this.renderer.setSize(width, height);
   }
 }
