@@ -7,7 +7,7 @@ import { EngineService } from './rover-map.service';
   styleUrls: ['./rover-map.component.css']
 })
 export class RoverMapComponent implements OnInit {
-
+  UVShowing=false;
   @ViewChild('rendererCanvas', {static: true})
   public rendererCanvas: ElementRef<HTMLCanvasElement>;
 
@@ -18,5 +18,14 @@ export class RoverMapComponent implements OnInit {
     
     this.engServ.createScene(this.rendererCanvas);
   }
-
+  OcultarUV() {
+    console.log(this.UVShowing)
+    this.UVShowing=!this.UVShowing;
+    // var x = document.getElementById("UV");
+    // if (x.style.display === "none") {
+    //   x.style.display = "block";
+    // } else {
+    //   x.style.display = "none";
+    // }
+  }
 }

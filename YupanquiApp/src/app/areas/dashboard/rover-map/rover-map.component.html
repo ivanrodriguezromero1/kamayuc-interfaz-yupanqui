@@ -1,2 +1,40 @@
-
 <canvas class="nopadding" style="margin: -4px;" #rendererCanvas id="renderCanvas"></canvas>
+
+<!-- <div class="bg-stats">
+      <div class="container-fluid">
+        <div class="row align-items-end border">
+          <div class="col-4">
+            <div class="row align-items-end border">
+              <div class="custom-box col-3 border"><img class="img-fluid" src="../../../assets/img/stat3.png"></div>
+              <div class="custom-box col-3 border"><img class="img-fluid" src="../../../assets/img/stat5.png"></div>
+              <div class="custom-box col-3 border"><img class="img-fluid" src="../../../assets/img/stat4.png"></div>
+              <div class="custom-box col-3 border"><img class="img-fluid" src="../../../assets/img/stat2.png"></div>
+            </div>
+          </div>
+          <div class="col-4 .offset-md-3 nopadding border">
+            
+          </div>
+        </div>
+      </div>
+    </div> -->
+<!-- <div class="d-flex flex-row-reverse border" style="padding-right: -12px;">
+    </div> -->
+
+
+
+<!-- UV -->
+
+<div class="right">
+    <div  style="background-color: #0A1515" *ngIf="UVShowing">
+        <!-- aqui va el contenido de UV -->
+        <img class="img-fluid" src="../../../assets/img/stat1.png">
+    </div>
+    <div *ngIf="UVShowing" class="right-button" style="border: 15px;">
+        <div (click)="OcultarUV()" style="width: 30px;border: 15px;"><mat-icon style="color:white;background-color: #0A1515;border: 15px;">keyboard_arrow_right</mat-icon></div>
+    </div>
+    <div *ngIf="!UVShowing" class="right-button-closed">
+        <div (click)="OcultarUV()" style="max-height: 30px; width: 30px;background-color: #0A1515;border: 15px;"><mat-icon style="font-size: 30px; color:white;border: 15px;">keyboard_arrow_left</mat-icon></div>
+    </div>
+</div>
+
+<!--FIN  UV -->

@@ -1,0 +1,28 @@
+.right {
+    position: absolute;
+    top: 50%;
+  transform: translateY(-50%);
+    right: 0;
+    width: 250px;
+    height: auto;
+  /* align-self: flex-end; */
+}
+.right-button{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    width: 270px;
+    height: auto;
+    border:10px 10px  10px 10px ;
+  /* align-self: flex-end; */
+}
+.right-button-closed{
+    position: absolute;
+    top: 50%;
+  transform: translateY(-50%);
+    right: 0;
+    width: 35px;
+    height: auto;
+  /* align-self: flex-end; */
+}

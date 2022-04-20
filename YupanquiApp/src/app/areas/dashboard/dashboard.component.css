@@ -12,12 +12,15 @@
 }
 
 .footer {
+    margin: -2px;
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 100.5%;
     color: white;
     text-align: center;
+    /* position: sticky;
+  top: 4rem; */
 }
 
 .bg-stats {
