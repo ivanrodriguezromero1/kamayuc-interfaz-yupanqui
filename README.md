@@ -1,1 +1,0 @@
-# kamayuc-interfaz-yupanqui
