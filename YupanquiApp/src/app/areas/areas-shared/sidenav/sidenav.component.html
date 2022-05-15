@@ -2,8 +2,10 @@
     <mat-sidenav #sidenav class="sidenav-left-content" [mode]="'over'">
         <div class="container sidenav-left-content-child mt-5 ">
             <div *ngFor="let item of Menu" class="row m-3 sidenav-nav-option" (click)="goToPage(item.link)" aria-readonly="true">
-                        <div class="col-2 pointer"><mat-icon>{{item.ico}}</mat-icon></div>
-                        <div class="col-9 pointer">{{item.name}}</div>
+                <div class="row">
+                        <div class="col-2 pointer"><mat-icon style="text-shadow: 2px 2px 8px #000000;">{{item.ico}}</mat-icon></div>
+                        <div class="col-9 pointer"><p style="text-shadow: 2px 2px 8px #000000;">{{item.name}}</p></div>
+                    </div>
             </div>
         </div>
     </mat-sidenav>

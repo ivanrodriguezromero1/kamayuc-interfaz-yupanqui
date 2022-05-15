@@ -7,8 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { SidenavComponent } from './areas/areas-shared/sidenav/sidenav.component';
 import { ToolbarComponent } from './areas/areas-shared/toolbar/toolbar.component';
 import { DashboardComponent } from './areas/dashboard/dashboard.component';
-import { MaterialtModule } from './shared/libraries/material.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './shared/libraries/material.module';
 
 @NgModule({
   declarations: [
@@ -20,8 +21,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialtModule,
     MatDialogModule,
+    ReactiveFormsModule,
+    MaterialModule
   ],
  
   providers: [],

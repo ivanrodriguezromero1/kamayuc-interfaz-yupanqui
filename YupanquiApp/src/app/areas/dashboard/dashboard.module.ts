@@ -1,6 +1,6 @@
 import { CommonModule, registerLocaleData } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
-import { MaterialtModule } from 'src/app/shared/libraries/material.module';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule, Renderer2,ViewEncapsulation } from '@angular/core';
+import { MaterialModule } from 'src/app/shared/libraries/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -11,15 +11,13 @@ registerLocaleData(localeEs, 'es');
 @NgModule({
     declarations: [
       DashboardComponent,
-      RoverMapComponent,
-      
+      RoverMapComponent
     ],
     imports: [
       CommonModule,
       DashboardRoutingModule,
-      MaterialtModule,
       SharedModule,
-      MaterialtModule,
+      MaterialModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [{ provide: LOCALE_ID, useValue: 'es' }]

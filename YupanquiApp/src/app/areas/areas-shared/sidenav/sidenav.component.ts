@@ -13,9 +13,9 @@ export class SidenavComponent implements OnInit {
     {name: 'Inicio',
     link:'/Rover',
   ico:'gps_not_fixed'},
-    {name: 'Developers',
-    link:'/Rover',
-    ico:'developer_mode'}
+    // {name: 'Developers',
+    // link:'/Rover',
+    // ico:'developer_mode'}
   ];
   constructor(private router: Router) { }
 

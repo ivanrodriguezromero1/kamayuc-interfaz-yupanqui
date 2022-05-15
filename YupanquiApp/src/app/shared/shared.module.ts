@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { CoreModule } from '../core';
-import { MaterialtModule } from './libraries/material.module';
+import { MaterialModule } from './libraries/material.module';
 
 
 @NgModule({
@@ -14,13 +14,13 @@ import { MaterialtModule } from './libraries/material.module';
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
-    MaterialtModule
+    MaterialModule
   ],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialtModule
+    MaterialModule
   ],
   declarations: [
   ],
