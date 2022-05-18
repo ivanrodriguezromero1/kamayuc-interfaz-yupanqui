@@ -29,6 +29,15 @@
   /* align-self: flex-end; */
 }
 
+.left-end-video{
+  position: absolute;
+  /* transform: translateY(-50%); */
+  left: 0;
+  bottom: 0;
+  width: 400px;
+  height: auto;
+}
+
 .left {
   position: absolute;
   top: 50%;
@@ -90,4 +99,8 @@
   100% {
     transform: rotate(360deg);
   }
+}
+.input_video {
+  display: none;
+  max-height:300px;max-width: 400px;
 }

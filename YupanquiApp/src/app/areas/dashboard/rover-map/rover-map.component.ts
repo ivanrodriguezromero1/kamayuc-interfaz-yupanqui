@@ -4,7 +4,11 @@ import { VRMLLoader } from 'node_modules/three/examples/jsm/loaders/VRMLLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Loader } from 'three';
 import * as THREE from 'three';
-import * as MEDIAPIPE from '@mediapipe/hands'
+import * as MEDIAPIPE from '@mediapipe/hands';
+import * as MEDIAPIPE_CONTROLS from  '@mediapipe/control_utils';
+import * as MEDIAPIPE_CAMERA from  '@mediapipe/camera_utils';
+import * as MEDIAPIPE_DRAWING from  '@mediapipe/drawing_utils';
+import { DeviceDetectorService } from 'ngx-device-detector';
 declare const webkitSpeechRecognition: any;
 @Component({
   selector: 'app-rover-map',
@@ -20,6 +24,9 @@ export class RoverMapComponent implements OnInit, OnDestroy {
   camera: THREE.PerspectiveCamera;
   scene: THREE.Scene;
   light: THREE.AmbientLight;
+
+
+
   geometry: any;
   cube: THREE.Mesh;
   rover: any;
@@ -59,12 +66,13 @@ export class RoverMapComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private deviceService: DeviceDetectorService
   ) {
     document.addEventListener('resize', () => {
       this.resize();
     });
-    this.init();
+    
   }
 
 
@@ -72,7 +80,10 @@ export class RoverMapComponent implements OnInit, OnDestroy {
     this.createForm();
     this.createScene(this.rendererCanvas);
     this.loadingRover()
-
+    this.testSupport([
+      {client: 'Chrome'},
+    ]);
+   
   }
   createForm() {
     this.Controls = this.fb.group({
@@ -120,11 +131,56 @@ export class RoverMapComponent implements OnInit, OnDestroy {
     )
   }
     /** Controles de Video/Gestures  */
+    WebCamActivado=false;
+//     const mpHands : window;
+// drawingUtils : MEDIAPIPE_DRAWING;
+// const controls : window;
+// const controls3d : window;
+    
+    testSupport(supportedDevices:{client?: string; os?: string;}[]) {
+      const deviceDetector = this.deviceService.getDeviceInfo();
+      console.log(deviceDetector)
+      // const detectedDevice = deviceDetector.parse(navigator.userAgent);
+    
+      let isSupported = false;
+      for (const device of supportedDevices) {
+        if (device.client !== undefined) {
+          const re = new RegExp(`^${device.client}$`);
+          if (!re.test(deviceDetector.browser)) {
+            continue;
+          }
+        }
+        // if (device.os !== undefined) {
+        //   const re = new RegExp(`^${device.os}$`);
+        //   if (!re.test(deviceDetector.os_version)) {
+        //     continue;
+        //   }
+        // }
+        isSupported = true;
+        break;
+      }
+      if (!isSupported) {
+        alert(`This App, running on ${deviceDetector.browser}/${deviceDetector.browser}, ` +
+              `is not well supported at this time, continue at your own risk.`);
+      }
+      if(isSupported){
+        console.log("This App is well supported at this time")
+        this.init();
+      }
+  }
   ActivarGestos(){
-
+    this.WebCamActivado=true;
+    // const videoElement =
+    // document.getElementsByClassName('input_video')[0] as HTMLVideoElement;
+    // const canvasElement =
+    // document.getElementsByClassName('output_canvas')[0] as HTMLCanvasElement;
+    // const controlsElement =
+    // document.getElementsByClassName('control-panel')[0] as HTMLDivElement;
+    // // const canvasCtx = canvasElement.getContext('2d')!;
+    // const config = MEDIAPIPE;
   }
   DesactivarGestos(){
-
+    this.WebCamActivado=false;
   }
 
 

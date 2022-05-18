@@ -81,6 +81,8 @@
   </div>
 </div>
 
-<div>
-  <video class="input_video"></video>
+<div *ngIf="WebCamActivado" class="left-end-video">
+  <!-- <video class="input_video"></video>
+  <canvas class="output_canvas" width="400x" height="300px"></canvas> -->
+  <img width="400x" height="300px" src="../../../../assets/img/web-cam.jpg"> 
 </div>
