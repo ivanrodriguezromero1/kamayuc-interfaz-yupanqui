@@ -4,96 +4,17 @@ import { VRMLLoader } from 'node_modules/three/examples/jsm/loaders/VRMLLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Loader } from 'three';
 import * as THREE from 'three';
+import * as MEDIAPIPE from '@mediapipe/hands'
+declare const webkitSpeechRecognition: any;
 @Component({
   selector: 'app-rover-map',
   templateUrl: './rover-map.component.html',
   styleUrls: ['./rover-map.component.css']
 })
-export class RoverMapComponent implements OnInit,OnDestroy {
+export class RoverMapComponent implements OnInit, OnDestroy {
   UVShowing = false;
   ControlsShowing = true;
   LogoShowing = true;
-  OptionsControl: any[] = [
-    { name: 'Keyboard', icon: 'keyboard', option: 1 },
-    { name: 'Gestures', icon: 'mood', option: 4 },
-    { name: 'Joystick', icon: 'gamepad', option: 3 },
-    { name: 'Voice', icon: 'keyboard_voice', option: 2 }];
-
-
-  Controls: FormGroup;
-  @ViewChild('rendererCanvas', { static: true })
-  public rendererCanvas: ElementRef<HTMLCanvasElement>;
-
-    
-  constructor(
-    private fb: FormBuilder,
-    private ngZone: NgZone
-  ) {
-    document.addEventListener('resize', () => {
-      this.resize();
-    });
-  }
-
-
-  ngOnInit() {
-    this.createForm();
-    this.createScene(this.rendererCanvas);
-    this.loadingRover()
-    
-  }
-  createForm() {
-    this.Controls = this.fb.group({
-      controlId: ''
-    })
-    this.Controls.controls['controlId'].valueChanges.subscribe((value) => {
-        switch (value) {
-          case 1: {
-            this.ActivarTeclado();
-            this.DesactivarVoz();
-            break;
-          }
-          case 2: {
-            this.ActivarVoz();
-            this.DesactivarTeclado();
-            break;
-          }
-          case 3: {
-            this.DesactivarVoz();
-            this.DesactivarTeclado();
-            break;
-          }
-          case 4: {
-            this.DesactivarVoz();
-            this.DesactivarTeclado();
-            break;
-          }
-          default: {
-            this.DesactivarVoz();
-            this.DesactivarTeclado();
-            break;
-          }
-        }
-      }
-    )
-  }
-  /** Controles de Voz  */
-  public isUserSpeaking: boolean = false;
-  ActivarVoz() {
-    this.isUserSpeaking = true;
-  }
-  DesactivarVoz() {
-    this.isUserSpeaking = false;
-  }
-
-
-  /** Controles de Teclado  */
-  DesactivarTeclado() {
-    this.DestroyTecladoListener();
-  }
-  ActivarTeclado() {
-    this.TecladoEventListener();
-  }
-
   canvas: HTMLCanvasElement;
   renderer: THREE.WebGLRenderer;
   camera: THREE.PerspectiveCamera;
@@ -124,19 +45,216 @@ export class RoverMapComponent implements OnInit,OnDestroy {
   polyline;
   // stats = new Stats();
   private frameId: number = null;
+  OptionsControl: any[] = [
+    { name: 'Keyboard', icon: 'keyboard', option: 1 },
+    { name: 'Gestures', icon: 'mood', option: 4 },
+    { name: 'Joystick', icon: 'gamepad', option: 3 },
+    { name: 'Voice', icon: 'keyboard_voice', option: 2 }];
 
-  
-  private unlistener: () => void;
+
+  Controls: FormGroup;
+  @ViewChild('rendererCanvas', { static: true })
+  public rendererCanvas: ElementRef<HTMLCanvasElement>;
 
 
+  constructor(
+    private fb: FormBuilder,
+    private ngZone: NgZone
+  ) {
+    document.addEventListener('resize', () => {
+      this.resize();
+    });
+    this.init();
+  }
 
+
+  ngOnInit() {
+    this.createForm();
+    this.createScene(this.rendererCanvas);
+    this.loadingRover()
+
+  }
+  createForm() {
+    this.Controls = this.fb.group({
+      controlId: ''
+    })
+    this.Controls.controls['controlId'].valueChanges.subscribe((value) => {
+      switch (value) {
+        case 1: {
+          this.ava = 0;
+          this.DesactivarVoz();
+          this.DesactivarGestos();
+          this.ActivarTeclado();
+          break;
+        }
+        case 2: {
+          this.ava = 0;
+          this.DesactivarTeclado();
+          this.DesactivarGestos();
+          this.ActivarVoz();
+          break;
+        }
+        case 3: {
+          this.ava = 0;
+          this.DesactivarVoz();
+          this.DesactivarTeclado();
+          this.DesactivarGestos();
+          break;
+        }
+        case 4: {
+          this.ava = 0;
+          this.DesactivarVoz();
+          this.DesactivarTeclado();
+          this.ActivarGestos();
+          break;
+        }
+        default: {
+          this.ava = 0;
+          this.DesactivarVoz();
+          this.DesactivarTeclado();
+          this.DesactivarGestos();
+          break;
+        }
+      }
+    }
+    )
+  }
+    /** Controles de Video/Gestures  */
+  ActivarGestos(){
+
+  }
+  DesactivarGestos(){
+
+  }
+
+
+  /** Controles de Voz  */
+  public isUserSpeaking: boolean = false;
+  ActivarVoz() {
+    this.text = '';
+    this.isStoppedSpeechRecog = false;
+    this.error = false;
+      this.start();
+  }
+  DesactivarVoz() {
+    this.text = '';
+    this.isStoppedSpeechRecog = true;
+    this.stop();
+    this.error = false;
+    this.recognition.removeAllListeners("end");
+  }
   /**
      * Activar Control por Voz
      */
+   init(): void {
+    this.recognition.interimResults = true;
+    this.recognition.lang = 'es-ES'; //en-US
+
+    this.recognition.addEventListener('result', (e: any) => {
+      const transcript = Array.from(e.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join('');
+      this.tempWords = transcript;
+    });
+  }
+  accion
+  start(): void {
+    this.isStoppedSpeechRecog = false;
+    this.recognition.start();
+    this.recognition.addEventListener('end', (value) => {
+      if (this.isStoppedSpeechRecog) {
+        this.recognition.stop();
+      } else {
+        this.wordConcat();
+        this.recognition.start();
+        if (this.text.trim()) {
+          var accion = this.text.trim();
+          this.text = ''
+          if (accion.toUpperCase() == "GO" || accion.toUpperCase() == "ADELANTE") {
+            console.log("GO-ADELANTE")
+            if (this.ava < 0) {
+              this.ava = 0;
+            }
+            else {
+              this.ava = 1;
+            }
+          }
+          if (accion.toUpperCase() == "STOP" || accion.toUpperCase() == "DETENTE") {
+            this.ava = 0;
+          }
+          if (accion.toUpperCase() == "BACK" || accion.toUpperCase() == "RETROCEDE") {
+            console.log("BACK-RETROCEDE");
+            if (this.ava > 0) {
+              this.ava = 0;
+            }
+            else {
+              this.ava = -1;
+            }
+          }
+          if (accion.toUpperCase() == "LEFT" || accion.toUpperCase() == "IZQUIERDA") {
+            console.log("LEFT-IZQUIERDA");
+            if (this.ava != 0) {
+              this.girY += 3 * Math.PI / 180;
+            }
+          }
+          if (accion.toUpperCase() == "RIGHT" || accion.toUpperCase() == "DERECHA") {
+            console.log("RIGHT-DERECHA")
+            
+            if (this.ava != 0) {
+              this.girY -= 3 * Math.PI / 180;
+            }
+          }
+        }
+
+        // if (this.text.trim() !== 'hola') {
+        //   this.stop();
+        //   this.text = 'ERROR!!!';
+        //   this.error = true;
+        // } else {
+        //   this.stop();
+        //   this.error = true;
+        // }
+      }
+    });
+  }
+
+
+  wordConcat(): void {
+    this.text = this.text + this.tempWords + ' ';
+    this.tempWords = ' ';
+  }
   /**
    * Desactivar Control por Voz
    */
+  stop(): void {
+    this.text = '';
+    this.recognition.stop();
+    this.isStoppedSpeechRecog = true;
+    this.wordConcat();
+  }
 
+  /** Controles de Teclado  */
+  DesactivarTeclado() {
+    this.DestroyTecladoListener();
+  }
+  ActivarTeclado() {
+    this.TecladoEventListener();
+  }
+
+
+
+
+  private unlistener: () => void;
+
+
+  error = true;
+
+  recognition = new webkitSpeechRecognition();
+  isStoppedSpeechRecog = false;
+  text = '';
+  tempWords: any;
+  
 
 
   /**
@@ -205,7 +323,7 @@ export class RoverMapComponent implements OnInit,OnDestroy {
     }
   }
 
-  
+
 
   ngOnDestroy(): void {
     if (this.frameId != null) {
@@ -286,7 +404,7 @@ export class RoverMapComponent implements OnInit,OnDestroy {
     this.scene.add(mesh);
   }
   number = 0;
-  loadingRover(){
+  loadingRover() {
     const loader = new VRMLLoader();
     loader.load(
       '../../../../assets/vrm/yupanqui.wrl',
@@ -305,8 +423,8 @@ export class RoverMapComponent implements OnInit,OnDestroy {
 
         this.rover.scale.set(4, 4, 4);
         this.scene.add(this.rover);
-        this.LogoShowing=false;
-        
+        this.LogoShowing = false;
+
         for (let i = 0; i <= 120; i++) {
           this.huellaGeo = new THREE.BoxGeometry(1, 0.05, 1);
           this.huellaMat = new THREE.MeshBasicMaterial({ color: 0x0CB6B8 });
@@ -323,7 +441,7 @@ export class RoverMapComponent implements OnInit,OnDestroy {
       },
       (xhr) => {
         // called while loading is progressing
-        this.number=(xhr.loaded / xhr.total * 100);
+        this.number = (xhr.loaded / xhr.total * 100);
         console.log(`${(xhr.loaded / xhr.total * 100)}% loaded`);
       },
       (error) => {
