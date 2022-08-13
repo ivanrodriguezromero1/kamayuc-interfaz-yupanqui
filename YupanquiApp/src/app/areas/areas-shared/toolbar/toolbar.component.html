@@ -4,21 +4,21 @@
     <div class="row">
       <div class="col">
         <div mat-raised-button (click)="item.toggle()">
-          <mat-icon class="text-center pointer" style="align-items:center;">menu</mat-icon>
+          <mat-icon class="text-center pointer" style="align-items:center;text-shadow: 2px 2px 12px #000000;">menu</mat-icon>
         </div>
       </div>
-      <div class="col-4">Welcome to Kamayuc's Rover</div>
+      <div class="col-4 Welcome"><h4 style=" text-shadow: 2px 2px 12px #000000;">Welcome to Kamayuc's Rover</h4></div>
       <div class="col"></div>
       <div class="col-5">
-        <button class="button-toolbar" mat-button [matMenuTriggerFor]="menu">Controls</button>
+        <button class="button-toolbar" mat-button [matMenuTriggerFor]="menu"><h4 style=" text-shadow: 2px 2px 12px #000000;">Controls</h4></button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Sensor1</button>
           <button mat-menu-item>Sensor2</button>
         </mat-menu>
-        <button class="button-toolbar" mat-button (click)="openDialog()">About Us</button>
+        <button class="button-toolbar" mat-button (click)="openDialog()"><h4 style=" text-shadow: 2px 2px 12px #000000;">About Us</h4></button>
 
         <button class="button-toolbar" mat-button mat-button style="text-decoration: none;"
-          (click)="goToTeam()">Contact</button>
+          (click)="goToTeam()"><h4 style=" text-shadow: 2px 2px 12px #000000;">Contact</h4></button>
         <!--<mat-icon>support_agent</mat-icon>-->
 
       </div>

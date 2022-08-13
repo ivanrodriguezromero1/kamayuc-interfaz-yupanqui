@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ERC\\ERC2022\\kamayuc-interfaz-yupanqui\\YupanquiSubscribe\\YupanquiSubscribe.csproj": {}
+    "D:\\ERC\\ERC NET\\kamayuc-interfaz-yupanqui\\YupanquiSubscribe\\YupanquiSubscribe.csproj": {}
   },
   "projects": {
-    "D:\\ERC\\ERC2022\\kamayuc-interfaz-yupanqui\\YupanquiSubscribe\\YupanquiSubscribe.csproj": {
+    "D:\\ERC\\ERC NET\\kamayuc-interfaz-yupanqui\\YupanquiSubscribe\\YupanquiSubscribe.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ERC\\ERC2022\\kamayuc-interfaz-yupanqui\\YupanquiSubscribe\\YupanquiSubscribe.csproj",
+        "projectUniqueName": "D:\\ERC\\ERC NET\\kamayuc-interfaz-yupanqui\\YupanquiSubscribe\\YupanquiSubscribe.csproj",
         "projectName": "YupanquiSubscribe",
-        "projectPath": "D:\\ERC\\ERC2022\\kamayuc-interfaz-yupanqui\\YupanquiSubscribe\\YupanquiSubscribe.csproj",
+        "projectPath": "D:\\ERC\\ERC NET\\kamayuc-interfaz-yupanqui\\YupanquiSubscribe\\YupanquiSubscribe.csproj",
         "packagesPath": "C:\\Users\\italo\\.nuget\\packages\\",
-        "outputPath": "D:\\ERC\\ERC2022\\kamayuc-interfaz-yupanqui\\YupanquiSubscribe\\obj\\",
+        "outputPath": "D:\\ERC\\ERC NET\\kamayuc-interfaz-yupanqui\\YupanquiSubscribe\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\italo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -56,7 +56,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
