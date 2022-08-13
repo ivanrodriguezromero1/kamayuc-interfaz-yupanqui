@@ -23,8 +23,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/gysperu/Arquitectura.Net.Backend/_packaging/LibreriaAmazon/nuget/v3/index.json": {},
-          "https://pkgs.dev.azure.com/gysperu/_packaging/Arquitectura.Librerias.Backend%40Local/nuget/v3/index.json": {}
+          "https://pkgs.dev.azure.com/joseretis/Libreria.Backend/_packaging/HelperGYS/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
